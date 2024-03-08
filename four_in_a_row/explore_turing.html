@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset = "utf-8">
+	<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="">
+	<meta name="author" content="Ma Lab">
+	<title>AI</title>
+
+	<script src="./static/js/lib/jquery-2.2.4.min.js"></script>
+	<script src="./static/js/lib/jquery-ui.min.js"></script>
+	<script src="./static/js/lib/bootstrap-12/bootstrap.min.js"></script>
+	<script src="./static/js/lib/underscore-min.js"></script>
+
+	<script src="./static/js/util.js"></script>
+	<script src="./static/js/game.js"></script>
+	<script src="./static/js/explore_turing.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+	<link href = "./static/css/lib/bootstrap-12/bootstrap.min.css" rel = "stylesheet">
+	<link href = './static/css/stylesheet.css' rel='stylesheet'>
+	<link href='./static/css/turing.css' rel='stylesheet'>
+
+	<script>
+		var blocks, player;
+		M=9;
+		N=4;
+		K=4;
+		
+		$(document).ready(function() {
+			load_game_data("./data/turing.json");
+			//load_game_data_old("./data/turing.csv");
+		});
+	</script>
+	</head>
+	<body>
+		<div id="nav-wrap">
+			<a href="read_paper.html">Read paper</a>
+			<a href="try_experiments.html">Try experiments</a>
+			<a href="explore_data.html">Explore data</a>
+			<a href="about_us.html">About us</a>	
+		</div>
+
+		<div class='container-fluid'>
+			<button type="button" class="btn btn-primary" id="show_random_btn" onclick='select_random_trial()'>Show random trial</button>
+			<button type="button" class="btn btn-primary" id="about_modal_btn" data-toggle="modal" data-target="#about-modal">About this experiment</button>
+			<div class="modal fade" id="about-modal" data-backdrop="static" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-body"> 
+							<p>We recruited 30 participants to play against AI opponents for 60 minutes. On a second session, they watched 180 videos of segments of games either between two human players, or two computers that follow a model with parameters fitted to those human players. After watching the segment, participants guess whether the players were human or computers, and report their subjective confidence in that judgement. Participants received correctness feedback after each trial. We compensated participants $12 per session plus $6 completion bonus. </p>
+							<img src="./media/image/Turing.png"></img>
+						</div>
+						<div class="modal-footer">				
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+			<div class="row">
+				<div class="col-xs-8 col-xs-offset-2 text-center">
+					<h1 class='headertext'>Loading</h1>
+				</div>
+			</div>
+			
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+		
+			<div class="row">
+				<div class="container-fluid col-xs-10 col-xs-offset-1 turing-container">
+					<video id='turing-stim' preload='metadata' style='-webkit-filter: brightness(108.5%);'>
+						<source id='stim-source' src='' type='video/mp4'>
+					</video>
+				</div>
+			</div>
+			<div class='container col-xs-10 col-xs-offset-1' id='slider-input-div'>
+				<div class='row' id='slider-row'>
+					<input class='col-xs-12' type='range' min=0 max=100 id='slider'>
+					<div id='slider-labels' class='col-xs-12'>
+						<div class='row'>
+							<div class='col-xs-4'><p style="text-align:left;" id='humans'>Certainly computers</p></div>
+							<div class='col-xs-4'><p style="text-align:center;" id='noClue'>No clue</p></div>
+							<div class='col-xs-4'><p style="text-align:right;" id='comps'>Certainly humans</p></div>
+						</div>
+					</div>
+					<div class='text-center col-xs-6 col-xs-offset-3' id='turing-feedback'>
+						<p id='feedback-text'></p>
+					</div>
+				</div>
+			</div>
+		
+			<div class='row _blank_'></div>
+
+			<div class="player text-center">
+				<button type="button" id="button_backward" class="btn-lg" onclick='btn_press_backward()'>
+					<i class="fa fa-chevron-left"></i>
+				</button>
+				<button type="button" id="button_play" class="btn-lg" onclick='btn_press_play()'>
+					<i class="fa fa-play"></i>
+				</button>
+				<button type="button" id="button_forward" class="btn-lg" onclick='btn_press_forward()'>
+					<i class="fa fa-chevron-right"></i>
+				</button>
+			</div>
+			<div class='row _blank_'></div>
+			<div class='row'>
+				<div class='col-xs-8 col-xs-offset-2 text-center'>
+					<h1 class='headertext2'></h1>
+				</div>
+			</div>	
+		</div>	
+	</body>
+</html>
